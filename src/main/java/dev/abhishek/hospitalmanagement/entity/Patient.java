@@ -40,11 +40,14 @@ public class Patient {
 
     private String gender;
 
-
-    @CreationTimestamp
     @Column(updatable = true)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
+
+    @OneToOne
+    @JoinColumn(name = "patient_insurance_id") // owning side
+    private Insurance insurance;
 }
