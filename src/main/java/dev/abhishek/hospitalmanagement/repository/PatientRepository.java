@@ -16,7 +16,7 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    Patient findByName(String divaPatel);
+    Patient findPatientById(Long id);
 
     List<Patient> findByBirthDateOrEmail(LocalDate birthDate, String email);
 
@@ -31,7 +31,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query("select new dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity(p.bloodGroup, count(p)) from Patient p group by p.bloodGroup")
     List<BloodGroupCountResponseEntity> countEachBloodGroupType();
 
-
     @Query(value = "select * from patient", nativeQuery = true)
     Page<Patient> findAllPatients(Pageable pageable);
 
@@ -39,4 +38,5 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Modifying
     @Query("update Patient p set p.name = :name where p.id=:id")
     int updateNameWithId(@Param("name") String name, @Param("id") Long id);
+
 }
