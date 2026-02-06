@@ -6,9 +6,12 @@ import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.function.support.RouterFunctionMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +21,10 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final RouterFunctionMapping routerFunctionMapping;
 
+    public Page<Patient> findAll(Pageable pageable){
+        return patientRepository.findAll(pageable);
+    }
+
     @Transactional
     public Patient getPatientByID(long id) {
         return patientRepository.findById(id)
@@ -26,6 +33,11 @@ public class PatientService {
 
     @Transactional
     public Patient createPatient(Patient patient) {
+        String email = patient.getEmail();
+
+        if(patientRepository.existsByEmailNot(email)){}
+
+        Patient newPatient = new Patient();
         return patientRepository.save(patient);
     }
 

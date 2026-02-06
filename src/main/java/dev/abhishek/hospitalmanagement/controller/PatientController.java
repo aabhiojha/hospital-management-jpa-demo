@@ -1,42 +1,46 @@
 package dev.abhishek.hospitalmanagement.controller;
 
 import dev.abhishek.hospitalmanagement.entity.Patient;
-import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import dev.abhishek.hospitalmanagement.service.PatientService;
-import jakarta.websocket.server.PathParam;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
+@RequestMapping("/api/patients")
+@RequiredArgsConstructor
 public class PatientController {
 
-    @Autowired
-    PatientService patientService;
+    private final PatientService patientService;
 
-    @GetMapping("/api/patients/{id}")
+    @GetMapping()
+    public Page<Patient> getPatients(Pageable pageable) {
+        return patientService.findAll(pageable);
+    }
+
+    @GetMapping("/{id}")
     public Patient getPatientById(@PathVariable("id") Long id) {
         return patientService.getPatientByID(id);
     }
 
-    @PostMapping("/api/patients")
+    @PostMapping()
     public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
         Patient savedPatient = patientService.createPatient(patient);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPatient);
     }
 
-    @PutMapping("api/patients/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable("id") long id, @RequestBody Patient patient) {
         Patient updatedPatient = patientService.updatePatient(id, patient);
         return ResponseEntity.status(HttpStatus.OK).body(updatedPatient);
     }
 
-    @DeleteMapping("apit/patients/{id}")
-    public ResponseEntity<String> deletePatient(@PathVariable("id") long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePatient(@PathVariable("id") long id) {
         patientService.deletePatient(id);
-        return ResponseEntity.status(HttpStatus.OK).body("The patient with id "+ id);
+        return ResponseEntity.status(HttpStatus.OK).body("The patient with id " + id + " is deleted.");
     }
 }

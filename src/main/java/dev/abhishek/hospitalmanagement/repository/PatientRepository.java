@@ -1,6 +1,8 @@
 package dev.abhishek.hospitalmanagement.repository;
 
 import dev.abhishek.hospitalmanagement.entity.Patient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,33 +14,26 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     Optional<Patient> findById(Long id);
 
-    List<Patient> findAll();
-
     boolean existsById(Long id);
 
     void deleteById(Long id);
 
     boolean existsByEmailAndIdNot(String email, long id);
 
-//    List<Patient> findByBirthDateOrEmail(LocalDate birthDate, String email);
-//
-//    List<Patient> findPatientByNameContainingIgnoreCaseOrderByIdAsc(String name);
-//
-//    @Query("select p from Patient p where p.bloodGroup = ?1")
-//    List<Patient> findByBloodGroup(@Param("bloodGroup") BloodGroupType bloodGroup);
-//
-//    @Query("select p from Patient p where p.birthDate > :birthDate")
-//    List<Patient> findByBornAfterDate(@Param("birthDate") LocalDate birthDate);
-//
-//    @Query("select new dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity(p.bloodGroup, count(p)) from Patient p group by p.bloodGroup")
-//    List<BloodGroupCountResponseEntity> countEachBloodGroupType();
-//
-//    @Query(value = "select * from patient", nativeQuery = true)
-//    Page<Patient> findAllPatients(Pageable pageable);
-//
-//    @Transactional
-//    @Modifying
-//    @Query("update Patient p set p.name = :name where p.id=:id")
-//    int updateNameWithId(@Param("name") String name, @Param("id") Long id);
+    boolean existsByEmailNot(String email);
 
+
+    List<Patient> findByNameContainingIgnoreCase(String name);
+
+    List<Patient> findByGender(String gender);
+
+    List<Patient> findByBloodGroup(String bloodGroup);
+
+// Methods for insurance relationship
+
+    Optional<Patient> findByInsurance_Id(Long insuranceId);
+
+    Optional<Patient> findByInsurance_PolicyNumber(String policyNumber);
+
+    Optional<Patient> findByInsurance_Provider(String insuranceProvider);
 }
