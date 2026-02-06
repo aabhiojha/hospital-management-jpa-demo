@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.function.support.RouterFunctionMapping;
 
 import java.util.Optional;
 
@@ -15,20 +16,40 @@ import java.util.Optional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final RouterFunctionMapping routerFunctionMapping;
 
     @Transactional
     public Patient getPatientByID(long id) {
-        Patient p1 = patientRepository.findById(id)
+        return patientRepository.findById(id)
                 .orElseThrow();
-        Patient p2 = patientRepository.findById(id)
-                .orElseThrow();
+    }
 
-        System.out.println(p1 == p2);
+    @Transactional
+    public Patient createPatient(Patient patient) {
+        return patientRepository.save(patient);
+    }
 
-        p1.setName("Ram Bahadur");
-//        patientRepository.save(p1);
+    @Transactional
+    public Patient updatePatient(long id, Patient patient) {
+        Patient existing = patientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Patient not found with id: "+ id));
 
-        return p1;
+        if(patient.getEmail() != null && !patient.getEmail().equals(existing.getEmail())){
+            if(patientRepository.existsByEmailAndIdNot(patient.getEmail(), id)){
+                throw new IllegalArgumentException("Email already in use.");
+            }
+            existing.setEmail(patient.getEmail());
+        }
+        if(patient.getName() != null) existing.setName(patient.getName());
+        if(patient.getBirthDate() != null) existing.setBirthDate(patient.getBirthDate());
+        if(patient.getBloodGroup() != null) existing.setBloodGroup(patient.getBloodGroup());
+        if(patient.getGender() != null) existing.setGender(patient.getGender());
+//        if(patient.() != null) existing.setName(patient.getName());
+        return patientRepository.save(existing);
+    }
+
+    public void deletePatient(long id) {
+        patientRepository.deleteById(id);
     }
 
 }

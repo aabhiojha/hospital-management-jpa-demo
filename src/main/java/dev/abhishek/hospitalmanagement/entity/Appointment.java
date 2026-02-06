@@ -24,7 +24,6 @@ public class Appointment {
     @Column(nullable = false)
     private String reason;
 
-
     private String status;
 
     @ManyToOne

@@ -29,14 +29,14 @@ public class InsuranceService {
 //        this.patientRepository = patientRepository;
 //    }
 
-    @Transactional
-    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId) {
-        Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
-
-        patient.setInsurance(insurance);
-
-        insurance.setPatient(patient);
-
-        return patient;
-    }
+//    @Transactional
+//    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId) {
+//        Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
+//
+//        patient.setInsurance(insurance);
+//
+//        insurance.setPatient(patient);
+//
+//        return patient;
+//    }
 }
