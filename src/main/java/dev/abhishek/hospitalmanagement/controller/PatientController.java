@@ -1,6 +1,8 @@
 package dev.abhishek.hospitalmanagement.controller;
 
+import dev.abhishek.hospitalmanagement.dto.CreatePatientRequestDTO;
 import dev.abhishek.hospitalmanagement.entity.Patient;
+import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import dev.abhishek.hospitalmanagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class PatientController {
 
     final PatientService patientService;
-//    PatientRepository patientRepository;
+    PatientRepository patientRepository;
 
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients(){
@@ -35,7 +37,7 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPatientEntry(@RequestBody Patient patient){
+    public ResponseEntity<?> createPatientEntry(@RequestBody CreatePatientRequestDTO patient){
         Patient patientEntry = patientService.createPatientEntry(patient);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -51,7 +53,4 @@ public class PatientController {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }

@@ -18,6 +18,9 @@ public class InsuranceController {
 
     private final InsuranceService insuranceService;
 
+
+
+
     //create an insurance
     @PostMapping
     public ResponseEntity<Insurance> createInsurance(@RequestBody Insurance insurance){
