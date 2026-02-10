@@ -14,12 +14,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class InsuranceService {
 
-    //    @Autowired
     private final InsuranceRepository insuranceRepository;
-    //    @Autowired
     private final PatientRepository patientRepository;
 
-    // this quietly does constructor injection
     // Required args constructor
 //    public InsuranceService(
 //            InsuranceRepository insuranceRepository,
@@ -29,14 +26,18 @@ public class InsuranceService {
 //        this.patientRepository = patientRepository;
 //    }
 
+    // service to create an insurance
+    @Transactional
+    public Insurance createInsurance(Insurance insurance){
+        return insuranceRepository.save(insurance);
+    }
+
+
 //    @Transactional
 //    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId) {
 //        Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
-//
 //        patient.setInsurance(insurance);
-//
 //        insurance.setPatient(patient);
-//
 //        return patient;
 //    }
 }

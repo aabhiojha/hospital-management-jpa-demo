@@ -44,7 +44,8 @@ public class Patient {
     @Column(nullable = false)
     private GenderType gender;
 
-    @Column(updatable = true)
+    // should change nullable to false after testing is done
+    @Column(updatable = true, nullable = true)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
