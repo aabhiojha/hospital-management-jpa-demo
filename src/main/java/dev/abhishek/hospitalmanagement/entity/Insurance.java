@@ -1,5 +1,6 @@
 package dev.abhishek.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,11 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Insurance {
+@ToString // Add this
+ public class Insurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +33,7 @@ public class Insurance {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @ToString.Exclude
     @OneToOne(mappedBy = "insurance") // inverse side
+    @ToString.Exclude
     private Patient patient;
 }

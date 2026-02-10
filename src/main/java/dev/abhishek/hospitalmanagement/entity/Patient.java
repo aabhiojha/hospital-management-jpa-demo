@@ -1,5 +1,6 @@
 package dev.abhishek.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import dev.abhishek.hospitalmanagement.type.GenderType;
 import jakarta.persistence.*;
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@ToString
 @Getter
 @Setter
+@ToString
 @Table(
         name = "patient",
         uniqueConstraints = {
@@ -34,7 +35,6 @@ public class Patient {
     @Column(nullable = false, length = 40)
     private String name;
 
-    @ToString.Exclude
     private LocalDate birthDate;
 
     @Column(unique = true, nullable = false)
@@ -45,7 +45,7 @@ public class Patient {
     private GenderType gender;
 
     // should change nullable to false after testing is done
-    @Column(updatable = true, nullable = true)
+    @Column(updatable = false, nullable = true)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -54,8 +54,12 @@ public class Patient {
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "patient_insurance_id") // owning side
+    @ToString.Exclude
+    @JsonIgnore
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
+    @ToString.Exclude
+    @JsonIgnore
     private List<Appointment> appointments;
 }

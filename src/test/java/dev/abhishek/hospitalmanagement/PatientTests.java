@@ -1,10 +1,8 @@
 package dev.abhishek.hospitalmanagement;
 
-import dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import dev.abhishek.hospitalmanagement.service.PatientService;
-import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
@@ -48,19 +45,19 @@ public class PatientTests {
 
 //        List<Patient> patients = patientRepository.findByBornAfterDate(LocalDate.of(1990, 5, 12));
 //
-//        List<BloodGroupCountResponseEntity> bloodGroupCountResponseEntities = patientRepository.countEachBloodGroupType();
+//        List<BloodGroupCountResponseDTO> bloodGroupCountResponseEntities = patientRepository.countEachBloodGroupType();
 //        System.out.println(bloodGroupCountResponseEntities);
-//        for(BloodGroupCountResponseEntity bloodGroupCountResponseEntity: bloodGroupCountResponseEntities){
+//        for(BloodGroupCountResponseDTO bloodGroupCountResponseEntity: bloodGroupCountResponseEntities){
 //            System.out.println(bloodGroupCountResponseEntity);
 //        }
 
-        Page<Patient> patientList = patientRepository.findAllPatients(PageRequest.of(2, 2, Sort.by("name")));
+//        Page<Patient> patientList = patientRepository.findAllPatients(PageRequest.of(2, 2, Sort.by("name")));
 
 //        int result = patientRepository.updateNameWithId("ram", 1L);
 //        System.out.println(result);
 
-        for (var patient : patientList) {
-            System.out.println(patient);
-        }
+//        for (var patient : patientList) {
+//            System.out.println(patient);
+//        }
     }
 }

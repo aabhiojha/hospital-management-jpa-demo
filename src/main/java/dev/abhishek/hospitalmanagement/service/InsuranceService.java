@@ -6,6 +6,8 @@ import dev.abhishek.hospitalmanagement.repository.InsuranceRepository;
 import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,6 @@ public class InsuranceService {
     private final InsuranceRepository insuranceRepository;
     private final PatientRepository patientRepository;
 
-    // Required args constructor
-//    public InsuranceService(
-//            InsuranceRepository insuranceRepository,
-//            PatientRepository patientRepository
-//    ) {
-//        this.insuranceRepository = insuranceRepository;
-//        this.patientRepository = patientRepository;
-//    }
-
     // service to create an insurance
     @Transactional
     public Insurance createInsurance(Insurance insurance){
@@ -33,11 +26,16 @@ public class InsuranceService {
     }
 
 
-//    @Transactional
-//    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId) {
-//        Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
-//        patient.setInsurance(insurance);
-//        insurance.setPatient(patient);
-//        return patient;
-//    }
+    @Transactional
+    public Patient assignInsuranceToPatient(Long insuranceId, Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
+        Insurance insurance = insuranceRepository.findById(insuranceId)
+                .orElseThrow(()-> new EntityNotFoundException("Insurance not found with id: "+ insuranceId));
+        patient.setInsurance(insurance);
+        insurance.setPatient(patient);
+        return patient;
+    }
+
+
 }

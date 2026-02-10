@@ -1,6 +1,6 @@
 package dev.abhishek.hospitalmanagement.repository;
 
-import dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity;
+//import dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseDTO;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import jakarta.transaction.Transactional;
@@ -17,29 +17,29 @@ import java.util.Optional;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    Optional<Patient> findById(Long id);
+//    Optional<Patient> findById(Long id);
 
-    Optional<Patient> findByEmail(String email);
+//    Optional<Patient> findByEmail(String email);
+//
+//    List<Patient> findByBirthDateOrEmail(LocalDate birthDate, String email);
+//
+//    List<Patient> findPatientByNameContainingIgnoreCaseOrderByIdAsc(String name);
+//
+//    @Query("select p from Patient p where p.bloodGroup = ?1")
+//    List<Patient> findByBloodGroup(@Param("bloodGroup") BloodGroupType bloodGroup);
 
-    List<Patient> findByBirthDateOrEmail(LocalDate birthDate, String email);
+//    @Query("select p from Patient p where p.birthDate > :birthDate")
+//    List<Patient> findByBornAfterDate(@Param("birthDate") LocalDate birthDate);
 
-    List<Patient> findPatientByNameContainingIgnoreCaseOrderByIdAsc(String name);
-
-    @Query("select p from Patient p where p.bloodGroup = ?1")
-    List<Patient> findByBloodGroup(@Param("bloodGroup") BloodGroupType bloodGroup);
-
-    @Query("select p from Patient p where p.birthDate > :birthDate")
-    List<Patient> findByBornAfterDate(@Param("birthDate") LocalDate birthDate);
-
-    @Query("select new dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity(p.bloodGroup, count(p)) from Patient p group by p.bloodGroup")
-    List<BloodGroupCountResponseEntity> countEachBloodGroupType();
-
-    @Query(value = "select * from patient", nativeQuery = true)
-    Page<Patient> findAllPatients(Pageable pageable);
-
-    @Transactional
-    @Modifying
-    @Query("update Patient p set p.name = :name where p.id=:id")
-    int updateNameWithId(@Param("name") String name, @Param("id") Long id);
-
+//    @Query("select new dev.abhishek.hospitalmanagement.dto.BloodGroupCountResponseEntity(p.bloodGroup, count(p)) from Patient p group by p.bloodGroup")
+//    List<BloodGroupCountResponseDTO> countEachBloodGroupType();
+//
+//    @Query(value = "select * from patient", nativeQuery = true)
+//    Page<Patient> findAllPatients(Pageable pageable);
+//
+//    @Transactional
+//    @Modifying
+//    @Query("update Patient p set p.name = :name where p.id=:id")
+//    int updateNameWithId(@Param("name") String name, @Param("id") Long id);
+//
 }
