@@ -54,8 +54,6 @@ public class Patient {
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "patient_insurance_id") // owning side
-    @ToString.Exclude
-    @JsonIgnore
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")

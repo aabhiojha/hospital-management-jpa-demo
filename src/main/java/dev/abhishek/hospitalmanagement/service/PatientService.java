@@ -25,6 +25,12 @@ public class PatientService {
                 .orElseThrow(() -> new PatientNotFoundException(id));
     }
 
+    // search patient by email
+    public Optional<Patient> getPatientByEmail(String email){
+        Patient byEmail = patientRepository.findByEmail(email);
+        return Optional.ofNullable(byEmail);
+    }
+
     @Transactional
     public Patient createPatientEntry(Patient patient) {
         return patientRepository.save(patient);

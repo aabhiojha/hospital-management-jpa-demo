@@ -1,12 +1,8 @@
 package dev.abhishek.hospitalmanagement.controller;
 
 import dev.abhishek.hospitalmanagement.entity.Patient;
-import dev.abhishek.hospitalmanagement.exceptions.patient.PatientNotFoundException;
-import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import dev.abhishek.hospitalmanagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +27,11 @@ public class PatientController {
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable Long id){
          return new ResponseEntity<>(patientService.getPatientByID(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/email")
+    public ResponseEntity<Optional<Patient>> getPatientByEmail(@RequestParam String email){
+        return new ResponseEntity<>(patientService.getPatientByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping

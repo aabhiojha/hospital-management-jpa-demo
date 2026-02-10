@@ -35,5 +35,6 @@ import java.time.LocalDateTime;
 
     @OneToOne(mappedBy = "insurance") // inverse side
     @ToString.Exclude
+    @JsonIgnore // Prevent circular serialization
     private Patient patient;
 }
