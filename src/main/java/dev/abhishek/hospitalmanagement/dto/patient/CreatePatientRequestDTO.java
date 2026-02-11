@@ -1,5 +1,6 @@
-package dev.abhishek.hospitalmanagement.dto;
+package dev.abhishek.hospitalmanagement.dto.patient;
 
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
 import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import dev.abhishek.hospitalmanagement.type.GenderType;
 import jakarta.validation.Valid;

@@ -1,11 +1,9 @@
 package dev.abhishek.hospitalmanagement.controller;
 
-import dev.abhishek.hospitalmanagement.dto.AssignInsurancePatientDTO;
+import dev.abhishek.hospitalmanagement.dto.patient_insurance.AssignInsurancePatientDTO;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import dev.abhishek.hospitalmanagement.entity.Patient;
-import dev.abhishek.hospitalmanagement.repository.InsuranceRepository;
 import dev.abhishek.hospitalmanagement.service.InsuranceService;
-import dev.abhishek.hospitalmanagement.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
-package dev.abhishek.hospitalmanagement.dto;
+package dev.abhishek.hospitalmanagement.dto.patient;
 
+import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceDTO;
 import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import dev.abhishek.hospitalmanagement.type.GenderType;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

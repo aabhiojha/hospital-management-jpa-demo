@@ -1,4 +1,4 @@
-package dev.abhishek.hospitalmanagement.dto;
+package dev.abhishek.hospitalmanagement.dto.patient_insurance;
 
 import lombok.*;
 

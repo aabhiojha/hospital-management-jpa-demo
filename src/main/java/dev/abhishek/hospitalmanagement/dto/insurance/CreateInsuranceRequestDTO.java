@@ -1,4 +1,4 @@
-package dev.abhishek.hospitalmanagement.dto;
+package dev.abhishek.hospitalmanagement.dto.insurance;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
 package dev.abhishek.hospitalmanagement.controller;
 
-import dev.abhishek.hospitalmanagement.dto.CreatePatientRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.repository.PatientRepository;
 import dev.abhishek.hospitalmanagement.service.PatientService;

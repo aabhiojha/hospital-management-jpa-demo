@@ -1,5 +1,8 @@
 package dev.abhishek.hospitalmanagement.service;
 
+import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.PatientMapper;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.exceptions.patient.PatientNotFoundException;
 import dev.abhishek.hospitalmanagement.repository.PatientRepository;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final PatientMapper patientMapper;
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
@@ -26,14 +30,18 @@ public class PatientService {
     }
 
     // search patient by email
-    public Optional<Patient> getPatientByEmail(String email){
+    public Optional<Patient> getPatientByEmail(String email) {
         Patient byEmail = patientRepository.findByEmail(email);
         return Optional.ofNullable(byEmail);
     }
 
     @Transactional
-    public Patient createPatientEntry(Patient patient) {
-        return patientRepository.save(patient);
+    public PatientDTO createPatientEntry(CreatePatientRequestDTO patientRequestDTO) {
+        Patient patientEntity = patientMapper.toEntity(patientRequestDTO);
+        patientRepository.save(patientEntity);
+//        System.out.println(patientEntity);
+
+
     }
 
     @Transactional
@@ -54,7 +62,7 @@ public class PatientService {
 
 
     @Transactional
-    public void deletePatient(long id){
+    public void deletePatient(long id) {
         patientRepository.deleteById(id);
     }
 
