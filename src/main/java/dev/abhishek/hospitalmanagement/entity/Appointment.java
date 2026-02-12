@@ -1,5 +1,6 @@
 package dev.abhishek.hospitalmanagement.entity;
 
+import dev.abhishek.hospitalmanagement.type.AppointmentStatusType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,8 @@ public class Appointment {
     @Column(nullable = false)
     private String reason;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatusType status;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false) // owning side and appointment must have a patientId

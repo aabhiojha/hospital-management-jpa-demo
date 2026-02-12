@@ -2,6 +2,8 @@ package dev.abhishek.hospitalmanagement.dto.appointment;
 
 import dev.abhishek.hospitalmanagement.entity.Doctor;
 import dev.abhishek.hospitalmanagement.entity.Patient;
+import dev.abhishek.hospitalmanagement.type.AppointmentStatusType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,8 +13,12 @@ public class AppointmentDTO {
     private Long id;
     private LocalDateTime appointmentTime;
     private String reason;
-    private String status;
+    private AppointmentStatusType status;
 
-//    private Patient patient;
-//    private Doctor doctor;
+    @NotNull
+    private Long patientId;
+
+    @NotNull
+    private Long doctorId;
+
 }

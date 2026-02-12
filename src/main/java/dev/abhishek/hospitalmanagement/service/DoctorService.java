@@ -19,6 +19,12 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final PatientMapper patientMapper;
 
+    // doctor by id
+    public Doctor getById(Long id){
+        return doctorRepository.findById(id).orElse(null);
+    }
+
+
     public List<DoctorDTO> getAllDoctors() {
         List<Doctor> allDoctors = doctorRepository.findAll();
         List<DoctorDTO> doctorDTOS = new ArrayList<>();
