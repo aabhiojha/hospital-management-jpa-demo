@@ -1,11 +1,17 @@
 package dev.abhishek.hospitalmanagement.service;
 
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceDTO;
+import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceMapper;
 import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
 import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
 import dev.abhishek.hospitalmanagement.dto.patient.PatientMapper;
+import dev.abhishek.hospitalmanagement.entity.Insurance;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.exceptions.patient.PatientNotFoundException;
+import dev.abhishek.hospitalmanagement.repository.InsuranceRepository;
 import dev.abhishek.hospitalmanagement.repository.PatientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +24,9 @@ import java.util.Optional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final InsuranceRepository insuranceRepository;
     private final PatientMapper patientMapper;
+    private final InsuranceMapper insuranceMapper;
 
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
@@ -38,10 +46,17 @@ public class PatientService {
     @Transactional
     public PatientDTO createPatientEntry(CreatePatientRequestDTO patientRequestDTO) {
         Patient patientEntity = patientMapper.toEntity(patientRequestDTO);
-        patientRepository.save(patientEntity);
-//        System.out.println(patientEntity);
 
-
+        if (patientRequestDTO.getInsurance() != null) {
+            CreateInsuranceRequestDTO createInsuranceRequestDTO = patientRequestDTO.getInsurance();
+            Insurance insuranceEntity = insuranceMapper.toEntity(createInsuranceRequestDTO);
+            patientEntity.setInsurance(insuranceEntity);
+            insuranceEntity.setPatient(patientEntity);
+            patientRepository.save(patientEntity);
+            patientRepository.flush(); // flush to generate IDs
+            return patientMapper.toDto(patientEntity);
+        }
+        return null;
     }
 
     @Transactional
@@ -65,5 +80,22 @@ public class PatientService {
     public void deletePatient(long id) {
         patientRepository.deleteById(id);
     }
+
+
+    // assign insurance to a patient
+    // should be done from owning class
+    // patient is the owning class
+    @Transactional
+    public Patient assignInsuranceToPatient(Long insuranceId, Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
+        Insurance insurance = insuranceRepository.findById(insuranceId)
+                .orElseThrow(() -> new EntityNotFoundException("Insurance not found with id: " + insuranceId));
+        patient.setInsurance(insurance);
+        insurance.setPatient(patient);
+        insurance.getPatient().setName("hari lal");
+        return patient;
+    }
+
 
 }
