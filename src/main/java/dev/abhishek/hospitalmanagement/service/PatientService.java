@@ -1,11 +1,10 @@
 package dev.abhishek.hospitalmanagement.service;
 
 import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
-import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceDTO;
-import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceMapper;
+import dev.abhishek.hospitalmanagement.dto.mapper.InsuranceMapper;
 import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
 import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
-import dev.abhishek.hospitalmanagement.dto.patient.PatientMapper;
+import dev.abhishek.hospitalmanagement.dto.mapper.PatientMapper;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.exceptions.patient.PatientNotFoundException;

@@ -1,6 +1,8 @@
-package dev.abhishek.hospitalmanagement.dto.patient;
+package dev.abhishek.hospitalmanagement.dto.mapper;
 
 import dev.abhishek.hospitalmanagement.dto.insurance.InsuranceDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class PatientMapper {
         return patient;
     }
 
-    
+
     // patient to dto
     public PatientDTO toDto(Patient patient){
         PatientDTO dto = new PatientDTO();

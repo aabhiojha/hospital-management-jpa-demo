@@ -1,5 +1,6 @@
-package dev.abhishek.hospitalmanagement.dto.insurance;
+package dev.abhishek.hospitalmanagement.dto.mapper;
 
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import org.springframework.stereotype.Component;
 
