@@ -5,7 +5,6 @@ import dev.abhishek.hospitalmanagement.dto.doctor.DoctorDTO;
 import dev.abhishek.hospitalmanagement.entity.Doctor;
 import org.springframework.stereotype.Component;
 
-@Component
 public class DoctorMapper {
     private DoctorMapper() {
         // prevent instantiation
@@ -18,6 +17,7 @@ public class DoctorMapper {
         }
 
         DoctorDTO dto = new DoctorDTO();
+        dto.setId(doctor.getId());
         dto.setName(doctor.getName());
         dto.setSpecialization(doctor.getSpecialization());
         dto.setEmail(doctor.getEmail());
@@ -53,7 +53,5 @@ public class DoctorMapper {
             doctor.setEmail(dto.getEmail());
         }
     }
-
-
 }
 

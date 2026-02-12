@@ -2,10 +2,7 @@ package dev.abhishek.hospitalmanagement.controller;
 
 import dev.abhishek.hospitalmanagement.dto.doctor.CreateDoctorDTO;
 import dev.abhishek.hospitalmanagement.dto.doctor.DoctorDTO;
-import dev.abhishek.hospitalmanagement.entity.Doctor;
-import dev.abhishek.hospitalmanagement.entity.Patient;
-import dev.abhishek.hospitalmanagement.service.DoctorServices;
-import dev.abhishek.hospitalmanagement.service.PatientService;
+import dev.abhishek.hospitalmanagement.service.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +15,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DoctorController {
 
-    private final DoctorServices doctorServices;
-    private final PatientService patientService;
+    private final DoctorService doctorServices;
 
     @GetMapping
-    public ResponseEntity<List<DoctorDTO>> getAllDoctors(){
+    public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         return new ResponseEntity<>(doctorServices.getAllDoctors(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<DoctorDTO> getAllDoctors(@RequestBody CreateDoctorDTO createDoctorDTO){
+    public ResponseEntity<DoctorDTO> getAllDoctors(@RequestBody CreateDoctorDTO createDoctorDTO) {
         DoctorDTO doctor = doctorServices.createDoctor(createDoctorDTO);
-        return new ResponseEntity<>(doctor, HttpStatus.OK);
+        return new ResponseEntity<>(doctor, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDoctor(@PathVariable Long id) {
+        DoctorDTO doctorDTO = doctorServices.deleteDoctor(id);
+        if (doctorDTO != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
