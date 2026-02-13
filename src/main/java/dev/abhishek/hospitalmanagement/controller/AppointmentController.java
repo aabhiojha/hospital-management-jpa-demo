@@ -2,8 +2,7 @@ package dev.abhishek.hospitalmanagement.controller;
 
 import dev.abhishek.hospitalmanagement.dto.appointment.AppointmentDTO;
 import dev.abhishek.hospitalmanagement.dto.appointment.CreateAppointmentDTO;
-import dev.abhishek.hospitalmanagement.dto.mapper.AppointmentMapper;
-import dev.abhishek.hospitalmanagement.entity.Appointment;
+import dev.abhishek.hospitalmanagement.dto.appointment.UpdateAppointmentDTO;
 import dev.abhishek.hospitalmanagement.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,5 +34,12 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
     }
 
+    @PutMapping
+    public ResponseEntity<AppointmentDTO> updateAppointment(
+            @RequestBody UpdateAppointmentDTO updateAppointmentDTO
+    ) {
+        AppointmentDTO appointmentDTO = appointmentService.updateAppointment(updateAppointmentDTO);
+        return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+    }
 
 }

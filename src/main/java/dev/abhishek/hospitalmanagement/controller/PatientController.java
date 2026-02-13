@@ -1,6 +1,7 @@
 package dev.abhishek.hospitalmanagement.controller;
 
-import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.appointment.AppointmentDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientDTO;
 import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
 import dev.abhishek.hospitalmanagement.dto.patient_insurance.AssignInsurancePatientDTO;
 import dev.abhishek.hospitalmanagement.entity.Patient;
@@ -23,43 +24,52 @@ public class PatientController {
     PatientRepository patientRepository;
 
     @GetMapping
-    public ResponseEntity<List<Patient>> getAllPatients(){
+    public ResponseEntity<List<Patient>> getAllPatients() {
         List<Patient> allPatients = patientService.getAllPatients();
         return new ResponseEntity<>(allPatients, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable Long id){
-         return new ResponseEntity<>(patientService.getPatientByID(id), HttpStatus.OK);
+    public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
+        return new ResponseEntity<>(patientService.getPatientByID(id), HttpStatus.OK);
     }
 
     @GetMapping("/email")
-    public ResponseEntity<Optional<Patient>> getPatientByEmail(@RequestParam String email){
+    public ResponseEntity<Optional<Patient>> getPatientByEmail(@RequestParam String email) {
         return new ResponseEntity<>(patientService.getPatientByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<PatientDTO> createPatientEntry(@RequestBody CreatePatientRequestDTO patient){
+    public ResponseEntity<PatientDTO> createPatientEntry(@RequestBody CreatePatientDTO patient) {
         PatientDTO patientEntry = patientService.createPatientEntry(patient);
-        return new ResponseEntity<>(patientEntry,HttpStatus.CREATED);
+        return new ResponseEntity<>(patientEntry, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updatePatientEntry(@RequestBody Patient patient, @PathVariable long id){
+    public ResponseEntity<?> updatePatientEntry(@RequestBody Patient patient, @PathVariable long id) {
         Optional<Patient> updatedPatient = patientService.updatePatient(patient, id);
         return new ResponseEntity<>(updatedPatient, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePatientEntry(@PathVariable long id){
+    public ResponseEntity<?> deletePatientEntry(@PathVariable long id) {
         patientService.deletePatient(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Patient> assignInsuranceToPatient(@RequestBody AssignInsurancePatientDTO requestObj){
+    public ResponseEntity<Patient> assignInsuranceToPatient(@RequestBody AssignInsurancePatientDTO requestObj) {
         Patient patient = patientService.assignInsuranceToPatient(requestObj.getInsuranceId(), requestObj.getPatientId());
         return new ResponseEntity<>(patient, HttpStatus.OK);
+    }
+
+    @GetMapping("/appointments/{patientId}")
+    public ResponseEntity<List<AppointmentDTO>> getAllAppointments(
+            // for now
+            @PathVariable Long patientId
+    ) {
+        List<AppointmentDTO> appointments = patientService.getAppointments(patientId);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
 }
