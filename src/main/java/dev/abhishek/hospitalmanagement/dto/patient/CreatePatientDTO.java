@@ -1,6 +1,6 @@
 package dev.abhishek.hospitalmanagement.dto.patient;
 
-import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceDTO;
 import dev.abhishek.hospitalmanagement.type.BloodGroupType;
 import dev.abhishek.hospitalmanagement.type.GenderType;
 import jakarta.validation.Valid;
@@ -13,7 +13,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CreatePatientRequestDTO {
+public class CreatePatientDTO {
 
     @NotBlank(message = "Name is required")
     private String name;
@@ -32,6 +32,6 @@ public class CreatePatientRequestDTO {
 
     // recursive validation/serialization hune re
     @Valid
-    private CreateInsuranceRequestDTO insurance;
+    private CreateInsuranceDTO insurance;
 
 }

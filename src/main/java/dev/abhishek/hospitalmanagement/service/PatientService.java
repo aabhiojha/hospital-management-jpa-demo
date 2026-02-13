@@ -1,10 +1,13 @@
 package dev.abhishek.hospitalmanagement.service;
 
-import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.appointment.AppointmentDTO;
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceDTO;
+import dev.abhishek.hospitalmanagement.dto.mapper.AppointmentMapper;
 import dev.abhishek.hospitalmanagement.dto.mapper.InsuranceMapper;
-import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.patient.CreatePatientDTO;
 import dev.abhishek.hospitalmanagement.dto.patient.PatientDTO;
 import dev.abhishek.hospitalmanagement.dto.mapper.PatientMapper;
+import dev.abhishek.hospitalmanagement.entity.Appointment;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import dev.abhishek.hospitalmanagement.entity.Patient;
 import dev.abhishek.hospitalmanagement.exceptions.patient.PatientNotFoundException;
@@ -15,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,12 +47,12 @@ public class PatientService {
     }
 
     @Transactional
-    public PatientDTO createPatientEntry(CreatePatientRequestDTO patientRequestDTO) {
+    public PatientDTO createPatientEntry(CreatePatientDTO patientRequestDTO) {
         Patient patientEntity = patientMapper.toEntity(patientRequestDTO);
 
         if (patientRequestDTO.getInsurance() != null) {
-            CreateInsuranceRequestDTO createInsuranceRequestDTO = patientRequestDTO.getInsurance();
-            Insurance insuranceEntity = insuranceMapper.toEntity(createInsuranceRequestDTO);
+            CreateInsuranceDTO createInsuranceDTO = patientRequestDTO.getInsurance();
+            Insurance insuranceEntity = insuranceMapper.toEntity(createInsuranceDTO);
             patientEntity.setInsurance(insuranceEntity);
             insuranceEntity.setPatient(patientEntity);
             patientRepository.save(patientEntity);
@@ -94,6 +98,19 @@ public class PatientService {
         insurance.setPatient(patient);
         insurance.getPatient().setName("hari lal");
         return patient;
+    }
+
+
+    // appointments listing
+//    get all appointments by patient
+    public List<AppointmentDTO> getAppointments(Long patientId) {
+        Patient patientObj = patientRepository.findById(patientId).orElseThrow(() -> new PatientNotFoundException("The patient was not found"));
+        List<Appointment> appointments = patientObj.getAppointments();
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        for (var appointment : appointments) {
+            appointmentDTOS.add(AppointmentMapper.toDto(appointment));
+        }
+        return appointmentDTOS;
     }
 
 

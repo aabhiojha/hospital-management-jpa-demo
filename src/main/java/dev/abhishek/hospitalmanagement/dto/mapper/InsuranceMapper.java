@@ -1,24 +1,24 @@
 package dev.abhishek.hospitalmanagement.dto.mapper;
 
-import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceRequestDTO;
+import dev.abhishek.hospitalmanagement.dto.insurance.CreateInsuranceDTO;
 import dev.abhishek.hospitalmanagement.entity.Insurance;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InsuranceMapper {
-    public Insurance toEntity(CreateInsuranceRequestDTO createInsuranceRequestDTO){
+    public Insurance toEntity(CreateInsuranceDTO createInsuranceDTO){
         Insurance insurance = new Insurance();
-        insurance.setPolicyNumber(createInsuranceRequestDTO.getPolicyNumber());
-        insurance.setProvider(createInsuranceRequestDTO.getProvider());
-        insurance.setValidUntil(createInsuranceRequestDTO.getValidUntil());
+        insurance.setPolicyNumber(createInsuranceDTO.getPolicyNumber());
+        insurance.setProvider(createInsuranceDTO.getProvider());
+        insurance.setValidUntil(createInsuranceDTO.getValidUntil());
         return insurance;
     }
 
-    public CreateInsuranceRequestDTO toDto(Insurance insurance){
-        CreateInsuranceRequestDTO createInsuranceRequestDTO = new CreateInsuranceRequestDTO();
-        createInsuranceRequestDTO.setPolicyNumber(insurance.getPolicyNumber());
-        createInsuranceRequestDTO.setProvider(insurance.getProvider());
-        createInsuranceRequestDTO.setValidUntil(insurance.getValidUntil());
-        return createInsuranceRequestDTO;
+    public CreateInsuranceDTO toDto(Insurance insurance){
+        CreateInsuranceDTO createInsuranceDTO = new CreateInsuranceDTO();
+        createInsuranceDTO.setPolicyNumber(insurance.getPolicyNumber());
+        createInsuranceDTO.setProvider(insurance.getProvider());
+        createInsuranceDTO.setValidUntil(insurance.getValidUntil());
+        return createInsuranceDTO;
     }
 }

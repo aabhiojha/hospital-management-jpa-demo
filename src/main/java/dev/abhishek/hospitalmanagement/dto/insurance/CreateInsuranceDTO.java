@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CreateInsuranceRequestDTO {
+public class CreateInsuranceDTO {
     @NotBlank(message = "Policy number is required")
     private String policyNumber;
 
