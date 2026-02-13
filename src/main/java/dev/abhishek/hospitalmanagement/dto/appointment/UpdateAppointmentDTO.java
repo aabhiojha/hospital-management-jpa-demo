@@ -10,14 +10,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class CreateAppointmentDTO {
-    @NotNull
+public class UpdateAppointmentDTO {
+
+    private Long id;
+
     private LocalDateTime appointmentTime;
-    @NotBlank
+
     private String reason;
 
-    private Patient patient;
+    private AppointmentStatusType status;
 
-    private Doctor doctor;
-
+    private Long doctorId;
 }

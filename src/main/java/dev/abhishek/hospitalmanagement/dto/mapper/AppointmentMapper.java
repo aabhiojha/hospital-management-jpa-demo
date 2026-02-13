@@ -2,40 +2,11 @@ package dev.abhishek.hospitalmanagement.dto.mapper;
 
 import dev.abhishek.hospitalmanagement.dto.appointment.AppointmentDTO;
 import dev.abhishek.hospitalmanagement.dto.appointment.CreateAppointmentDTO;
+import dev.abhishek.hospitalmanagement.dto.appointment.UpdateAppointmentDTO;
 import dev.abhishek.hospitalmanagement.entity.Appointment;
+import dev.abhishek.hospitalmanagement.entity.Doctor;
+import dev.abhishek.hospitalmanagement.repository.DoctorRepository;
 import dev.abhishek.hospitalmanagement.type.AppointmentStatusType;
-
-//public class AppointmentMapper {
-//
-//    public static AppointmentDTO toDto(Appointment appointment) {
-//        if (appointment == null) {
-//            return null;
-//        }
-//
-//        AppointmentDTO appointmentDTO = new AppointmentDTO();
-//        appointmentDTO.setId(appointment.getId());
-//        appointmentDTO.setAppointmentTime(appointment.getAppointmentTime());
-//        appointmentDTO.setReason(appointment.getReason());
-//        appointmentDTO.setStatus(appointment.getStatus());
-////        appointment.setDoctor(appointment.getDoctor());
-////        appointment.setPatient(appointment.getPatient());
-//
-//        return appointmentDTO;
-//    }
-//
-//    public static Appointment toEntity(CreateAppointmentDTO createAppointmentDTO) {
-//        if (createAppointmentDTO == null) {
-//            return null;
-//        }
-//        Appointment appointment = new Appointment();
-//        appointment.setAppointmentTime(createAppointmentDTO.getAppointmentTime());
-//        appointment.setReason(createAppointmentDTO.getReason());
-////        createAppointmentDTO.setDoctor(appointment.getDoctor());
-////        createAppointmentDTO.setPatient(appointment.getPatient());
-//
-//        return appointment;
-//    }
-//}
 
 
 public class AppointmentMapper {
@@ -50,6 +21,8 @@ public class AppointmentMapper {
         dto.setAppointmentTime(appointment.getAppointmentTime());
         dto.setReason(appointment.getReason());
         dto.setStatus(appointment.getStatus());
+        dto.setDoctorId(appointment.getDoctor().getId());
+        dto.setPatientId(appointment.getPatient().getId());
 
         return dto;
     }
@@ -62,5 +35,28 @@ public class AppointmentMapper {
                 .reason(dto.getReason())
                 .status(AppointmentStatusType.SCHEDULED) // default state
                 .build();
+    }
+
+    public static Appointment toEntity(
+            UpdateAppointmentDTO updateAppointmentDTO,
+            Appointment existingAppointment,
+            Doctor doctor) {
+
+        if (updateAppointmentDTO.getAppointmentTime() != null) {
+            existingAppointment.setAppointmentTime(updateAppointmentDTO.getAppointmentTime());
+        }
+
+        if (updateAppointmentDTO.getDoctorId() != null) {
+            existingAppointment.setDoctor(doctor);
+        }
+
+        if (updateAppointmentDTO.getStatus() != null) {
+            existingAppointment.setStatus(updateAppointmentDTO.getStatus());
+        }
+
+        if (updateAppointmentDTO.getReason() != null) {
+            existingAppointment.setReason(updateAppointmentDTO.getReason());
+        }
+        return existingAppointment;
     }
 }
